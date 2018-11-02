@@ -1,0 +1,24 @@
+{
+  "name": "red-ampp",
+  "version": "1.0.0",
+  "description": "developer tool for running micro services behind a redbird proxy",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pcnate/red-ampp.git"
+  },
+  "keywords": [
+    "redbird",
+    "proxy",
+    "xampp"
+  ],
+  "author": "Nathan Baker <pcnate@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pcnate/red-ampp/issues"
+  },
+  "homepage": "https://github.com/pcnate/red-ampp#readme"
+}
