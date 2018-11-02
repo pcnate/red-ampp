@@ -20,5 +20,9 @@
   "bugs": {
     "url": "https://github.com/pcnate/red-ampp/issues"
   },
-  "homepage": "https://github.com/pcnate/red-ampp#readme"
+  "homepage": "https://github.com/pcnate/red-ampp#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "redbird": "^0.8.0"
+  }
 }
