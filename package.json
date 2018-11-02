@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/pcnate/red-ampp#readme",
   "dependencies": {
+    "dotenv": "^6.1.0",
     "express": "^4.16.4",
     "redbird": "^0.8.0"
   }
