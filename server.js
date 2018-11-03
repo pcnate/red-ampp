@@ -6,6 +6,7 @@ const http = require('http').Server( app );
 const bodyParser = require('body-parser');
 
 const storage = require('node-persist');
+storage.init();
 
 const baseAPI = '/red-ampp/api/';
 
@@ -44,7 +45,12 @@ proxy.start().then( () => {
       .catch( error => {
         console.error( 'unknown error binding the management portal api' );
       });
-  })
+
+    storage.forEach( async datum => {
+      let [ path, destination ] = JSON.parse( datum.key );
+      await proxy.register( path, destination, datum.value );
+    })
+  });
 
 });
 
@@ -59,7 +65,9 @@ app.get( baseAPI + 'getRoutes', ( request, response ) => {
 
 app.post( baseAPI + 'register', ( request, response ) => {
   proxy.register( request.body.path, request.body.destination )
-  .then( () => {
+  .then( async() => {
+    let item = JSON.stringify( [ request.body.path, request.body.destination ] );
+    await storage.setItem( item, true );
     response.send({
       success: true
     });
@@ -72,7 +80,9 @@ app.post( baseAPI + 'register', ( request, response ) => {
 });
 app.post( baseAPI + 'unregister', ( request, response ) => {
   proxy.unregister( request.body.path, request.body.destination )
-  .then( () => {
+  .then( async() => {
+    let item = JSON.stringify( [ request.body.path, request.body.destination ] );
+    await storage.removeItem( item, true );
     response.send({
       success: true
     });
