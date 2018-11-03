@@ -35,11 +35,15 @@ export class ConfigService {
   }
 
   getRoutes() {
-    return this.http.get( this.baseUrl + 'getRoutes', httpOptions )
-    .pipe(
-      retry(3),
-      catchError( this.handleError )
-    );
+    return this.get( 'getRoutes' );
+  }
+
+  get( action: string ) {
+    return this.http.get( this.baseUrl + action, httpOptions )
+      .pipe(
+        retry(3),
+        catchError( this.handleError )
+      )
   }
 
   post( action: string, redirect ) {
