@@ -2,6 +2,7 @@
   "name": "red-ampp-gui",
   "version": "0.0.0",
   "scripts": {
+    "dev": "ng serve",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
