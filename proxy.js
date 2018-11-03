@@ -60,9 +60,9 @@ function findResponder( message ) {
 /**
  * fork the proxy.js process and restart it if it crashes
  */
-function launchProxy( showProxy = 'false' ) {
+function launchProxy() {
   return new Promise( async ( resolve, reject ) => {
-    proxyProcess = await fork( './proxyWorker.js', { silent: showProxy+'' !== 'true' } );
+    proxyProcess = await fork( './proxyWorker.js', { silent: true });
 
     proxyProcess.stdout.on('data', data => {})
 
