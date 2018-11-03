@@ -34,7 +34,7 @@
               <input type="text" class="form-control-plaintext" [(ngModel)]="redirect.destination" [disabled]="!redirect.editable">
             </td>
             <td>
-              <button [disabled]="!redirect.editable" class="btn btn-danger float-right" (click)="removeRedirect( redirect )">x</button>
+              <button *ngIf="redirect.editable" class="btn btn-danger float-right" (click)="removeRedirect( redirect )">x</button>
             </td>
           </tr>
 
