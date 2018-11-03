@@ -1,11 +1,12 @@
 const fork = require( 'child_process' ).fork;
 
 var proxyProcess = null;
-var registry = [];
+var responderRegistry = [];
 var currentIdentifier = 0;
+var routes = [];
 
 /**
- * add a responder to the registry
+ * add a responder to the responderRegistry
  *
  * @param {string} type type of action
  * @param {string} folder folder that was acted upon
@@ -20,7 +21,7 @@ function addResponder( type, folder, success, error ) {
     error,
     identifier: currentIdentifier
   }
-  registry.push( responder );
+  responderRegistry.push( responder );
   return responder.identifier;
 }
 
@@ -34,7 +35,7 @@ function findResponder( message ) {
   let identifier = message.responderIdentifier;
   let success = message.success;
 
-  matches = registry.filter( m => m.identifier === identifier );
+  matches = responderRegistry.filter( m => m.identifier === identifier );
   if( matches.length > 0 ) {
 
     matches = matches[0];
@@ -42,14 +43,14 @@ function findResponder( message ) {
     if( success ) {
       if ( typeof matches.success === 'function' ) {
         matches.success();
-        registry = registry.filter( m => m.identifier !== identifier );
+        responderRegistry = responderRegistry.filter( m => m.identifier !== identifier );
       }
     }
     
     if( !success ) {
       if ( typeof matches.error === 'function' ) {
         matches.error();
-        registry = registry.filter( m => m.identifier !== identifier );
+        responderRegistry = responderRegistry.filter( m => m.identifier !== identifier );
       }
     }
 
@@ -120,11 +121,12 @@ function checkProxy() {
  * @param {string} folder url folder that should be forwarded
  * @param {string} destination full path of the destination
  */
-async function register( folder, destination ) {
+async function register( folder, destination, editable = true ) {
   return new Promise( async ( resolve, reject ) => {
     await checkProxy();
 
     let success = function() {
+      addRoute( folder, destination, editable );
       resolve();
     }
     let error = function() {
@@ -156,6 +158,7 @@ async function unregister( folder, destination ) {
     await checkProxy();
 
     let success = function() {
+      removeRoute( folder, destination );
       resolve();
     }
     let error = function() {
@@ -175,9 +178,27 @@ async function unregister( folder, destination ) {
   });
 }
 
+function addRoute( folder, destination, editable = true ) {
+  let route = {
+    path: folder,
+    destination,
+    editable
+  }
+
+  routes.push( route );
+}
+
+function removeRoute( folder, destination ) {
+  routes = routes.filter( m => !( m.path === folder && m.destination === destination ) );
+}
+
+function getRoutes() {
+  return routes;
+}
 
 module.exports = {
   start: launchProxy,
   register,
   unregister,
+  getRoutes,
 }
