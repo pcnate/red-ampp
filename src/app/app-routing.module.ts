@@ -4,7 +4,7 @@ import { AboutComponent } from './about/about.component';
 import { SettingsComponent } from './settings/settings.component';
 
 const routes: Routes = [
-  { path: 'red-ampp',      component: SettingsComponent },
+  { path: 'red-ampp',       component: SettingsComponent },
   { path: 'red-ampp/about', component: AboutComponent    },
 ];
 
