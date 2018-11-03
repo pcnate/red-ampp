@@ -43,7 +43,4 @@ var proxy = require( 'redbird' )( {
   port: 80,
 } );
 
-// standard blank site
-proxy.register( 'localhost', 'http://localhost:3000' );
-
 process.send('processReady');
