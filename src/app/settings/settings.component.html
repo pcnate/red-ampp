@@ -12,16 +12,35 @@
   </div>
 
   <div class="row">
-    <div class="col-12" *ngFor="let redirect of redirects">
+    <div class="col-12">
 
-      <form class="form-inline">
-        <div class="form-group-mb-2">
-          <input name="path" type="text" class="form-control-plaintext" [(ngModel)]="redirect.path" [disabled]="!redirect.editable">
-        </div>
-        <div class="form-group-mb-10">
-          <input name="destination" type="text" class="form-control-plaintext" [(ngModel)]="redirect.destination" [disabled]="!redirect.editable">
-        </div>
-      </form>
+      <table class="table table-hover table-sm">
+        
+        <thead>
+          <tr>
+            <th scope="col">URL path</th>
+            <th scope="col">Destination</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let redirect of redirects" >
+            <td>
+              <input type="text" class="form-control-plaintext" [(ngModel)]="redirect.path" [disabled]="!redirect.editable">
+            </td>
+            <td>
+              <input type="text" class="form-control-plaintext" [(ngModel)]="redirect.destination" [disabled]="!redirect.editable">
+            </td>
+            <td>
+              <button [disabled]="!redirect.editable" class="btn btn-danger float-right">x</button>
+            </td>
+          </tr>
+          <tr>
+            b
+          </tr>
+        </tbody>
+      </table>
     
     </div>
   </div>
