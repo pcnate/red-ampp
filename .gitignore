@@ -35,7 +35,6 @@ build/Release
 # Dependency directories
 node_modules/
 jspm_packages/
-.node_persist
 
 # TypeScript v1 declaration files
 typings/
@@ -60,3 +59,7 @@ typings/
 
 # next.js build output
 .next
+
+# node-persist
+.node-persist
+.node-persist/
