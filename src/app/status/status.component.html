@@ -1,3 +1,88 @@
-<p>
-  show the app status and ports here
-</p>
+<div class="container">
+
+  <br>
+
+  <div class="row">
+    
+    <div class="col-6 col-lg-3">
+      <div class="card">
+
+        <div class="list-group">
+
+          <div class="list-group-item">
+            <b>RED-AMPP</b>
+          </div>
+          
+          <div class="list-group-item" *ngIf="!status.port">Loading...</div>
+
+          <div *ngIf="status.port" class="list-group-item">
+            <span>Port:</span>
+            <span class="float-right">{{ status.port }}</span>
+          </div>
+          <div *ngIf="status.address" class="list-group-item">
+            <span>Address:</span>
+            <span class="float-right">{{ status.address }}</span>
+          </div>
+          <div *ngIf="status.PID" class="list-group-item">
+            <span>PID:</span>
+            <span class="float-right">{{ status.PID }}</span>
+          </div>
+
+        </div>
+      </div>
+      <br>
+    </div>
+      
+    <div class="col-6 col-lg-3">
+      <div class="card">
+
+        <div class="list-group">
+
+          <div class="list-group-item">
+            <b class="card-title">redbird</b>
+          </div>
+
+          <div class="list-group-item" *ngIf="!status.port">Loading...</div>
+          
+          <div *ngIf="status.port" class="list-group-item">
+            <span>Port:</span>
+            <span class="float-right">80</span>
+          </div>
+          <div *ngIf="status.address" class="list-group-item">
+            <span>Address:</span>
+            <span class="float-right">localhost</span>
+          </div>
+          <div *ngIf="status.redbirdPID" class="list-group-item">
+            <span>PID:</span>
+            <span class="float-right">{{ status.redbirdPID }}</span>
+          </div>
+
+        </div>
+      </div>
+      <br>
+    </div>
+
+    <div class="col-6 col-lg-3">
+      <div class="card">
+
+        <div class="list-group">
+          <div class="list-group-item">
+            <b>Top 5 Request Paths</b>
+          </div>
+        
+          <div class="list-group-item" *ngFor="let r of status.requests | slice:0:5">
+            <span>{{ r.path }}</span>
+            <span class="float-right">{{ r.count }}</span>
+          </div>
+
+          <div class="list-group-item" *ngIf="!status.requests || status.requests.length === 0">Loading...</div>
+        
+        </div>
+
+      </div>
+      <br>
+    </div>
+
+  </div>
+
+</div>
