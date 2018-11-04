@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Status } from '../_models';
 import { timer } from 'rxjs';
 import { ConfigService } from '../config.service';
@@ -8,7 +8,7 @@ import { ConfigService } from '../config.service';
   templateUrl: './status.component.html',
   styleUrls: ['./status.component.scss']
 })
-export class StatusComponent implements OnInit {
+export class StatusComponent implements OnInit, OnDestroy {
 
   status: Status = new Status();
 
@@ -25,5 +25,9 @@ export class StatusComponent implements OnInit {
   ) { }
 
   ngOnInit() {}
+
+  ngOnDestroy() {
+    this.subscribe.unsubscribe();
+  }
 
 }
