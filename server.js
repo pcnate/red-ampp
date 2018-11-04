@@ -6,6 +6,9 @@ const path = require('path');
 const app = express();
 const http = require('http').Server( app );
 const bodyParser = require('body-parser');
+const io = require('socket.io')( http, {
+  path: '/socket.io/',
+});
 
 const storage = require('node-persist');
 storage.init();
@@ -52,6 +55,11 @@ proxy.start().then( () => {
       .then( () => {})
       .catch( error => {
         console.error( 'unknown error binding the management portal api' );
+      });
+    proxy.register( '/red-ampp/socket.io', 'localhost:' + port + '/socket.io', false )
+      .then( () => {})
+      .catch( error => {
+        console.error( 'unknown error binding the management portal socket.io' );
       });
 
     storage.forEach( async datum => {
@@ -118,3 +126,10 @@ if ( process.env.NODE_ENV === 'production' ) {
     response.sendFile( path.join( __dirname, 'dist/index.html' ) );
   });
 }
+
+proxy.registerLogHandler( ( host, url ) => {
+  io.emit( 'new-log-entry', {
+    host,
+    url,
+  })
+});

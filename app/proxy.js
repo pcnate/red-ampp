@@ -7,12 +7,23 @@ var routes = [];
 var requestStats = {}
 var redbirdPID = 0;
 
+var handleLogs = () => {};
+
+function registerLogHandler( handler ) {
+  if( typeof handler !== 'function' ) {
+    return;
+  }
+  handleLogs = handler;
+}
+
 /**
  * match the best route and increment the count for that route
  * 
  * @param {string} url of the request
  */
-function countRequest( url ) {
+function countRequest( host, url ) {
+
+  handleLogs( host, url );
 
   // map the path of all routes
   let allRoutes = routes.map( m => m.path );
@@ -121,7 +132,7 @@ function launchProxy() {
         }
 
         if (typeof message.type !== 'undefined' && message.type === 'countRequest' ) {
-          countRequest( message.url );
+          countRequest( message.host, message.url );
         }
 
         return;
@@ -255,4 +266,5 @@ module.exports = {
   getRoutes,
   getRequestStats,
   getRedbirdPID,
+  registerLogHandler,
 }
