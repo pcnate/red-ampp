@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const proxy = require('./proxy');
+const proxy = require('./app/proxy');
 const app = require('express')();
 const http = require('http').Server( app );
 const bodyParser = require('body-parser');

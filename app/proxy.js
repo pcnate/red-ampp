@@ -95,7 +95,7 @@ function findResponder( message ) {
  */
 function launchProxy() {
   return new Promise( async ( resolve, reject ) => {
-    proxyProcess = await fork( './proxyWorker.js', { silent: true });
+    proxyProcess = await fork( './app/proxyWorker.js', { silent: true });
 
     proxyProcess.stdout.on('data', data => {})
 
