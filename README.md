@@ -1,4 +1,4 @@
-# redapp
+# RED-AMPP
 
 Developer tool for running micro services behind a redbird proxy.
 
