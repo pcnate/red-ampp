@@ -9,6 +9,8 @@ const storage = require('node-persist');
 storage.init();
 
 const baseAPI = '/red-ampp/api/';
+var port = 0;
+var address = 0;
 
 // app use stuff here
 app.use( bodyParser() );
@@ -17,7 +19,11 @@ app.use( bodyParser() );
 proxy.start().then( () => {
   
   listener = http.listen(() => {
-    const port = listener.address().port;
+
+    // save for status and later usage
+    port = listener.address().port;
+    address = listener.address().address;
+
     console.log( 'management app listening on port', port );
     
     // if in development, load angular from port 4200
@@ -92,4 +98,17 @@ app.post( baseAPI + 'unregister', ( request, response ) => {
       sucess: false,
     })
   })
+});
+
+app.get( baseAPI + 'status', ( request, response ) => {
+  let status = {
+    address,
+    port,
+    proxy: proxy ? true : false,
+    requests: proxy.getRequestStats(),
+    PID: process.pid,
+    redbirdPID: proxy.getRedbirdPID(),
+  };
+
+  response.send( status );
 });

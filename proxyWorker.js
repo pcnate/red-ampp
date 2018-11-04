@@ -41,6 +41,12 @@ function removeRegistration( responderIdentifier, folder, destination ) {
 // start the redbird proxy
 var proxy = require( 'redbird' )( {
   port: 80,
+  resolvers: [
+    function( host, url ) {
+      process.send({ type: 'countRequest', host, url });
+      return proxy._defaultResolver( host, url );
+    }
+  ]
 } );
 
-process.send('processReady');
+process.send({ type: 'processReady', PID: process.pid });

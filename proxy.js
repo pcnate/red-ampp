@@ -4,6 +4,38 @@ var proxyProcess = null;
 var responderRegistry = [];
 var currentIdentifier = 0;
 var routes = [];
+var requestStats = {}
+var redbirdPID = 0;
+
+/**
+ * match the best route and increment the count for that route
+ * 
+ * @param {string} url of the request
+ */
+function countRequest( url ) {
+
+  // map the path of all routes
+  let allRoutes = routes.map( m => m.path );
+
+  // filter anything with a partial match
+  let matchedRoutes = allRoutes.filter( m => url.indexOf( m ) > -1 );
+  
+  // sort by longest so best result comes first if there is more than one
+  if( matchedRoutes.length > 1 ) {
+    matchedRoutes.sort( ( a, b) => b.length - a.length );
+  }
+
+  // validadate enough results
+  if( matchedRoutes.length < 1 ) {
+    return;
+  }
+
+  // initialize if necessary and increment
+  if (typeof requestStats[matchedRoutes[0]] === 'undefined') {
+    requestStats[matchedRoutes[0]] = 0;
+  }
+  requestStats[matchedRoutes[0]]++;
+}
 
 /**
  * add a responder to the responderRegistry
@@ -69,13 +101,14 @@ function launchProxy() {
 
     // watch for messages
     proxyProcess.on( 'message', message => {
-      if( message === 'processReady' ) {
-        resolve();
-        return;
-      }
-      
       if( typeof message === 'object' ) {
-
+        
+        if( typeof message.type !== 'undefined' && message.type === 'processReady' ) {
+          redbirdPID = message.PID;
+          resolve();
+          return;
+        }
+        
         if( message.output ) {
           console.log( 'worker msg', message.output );
         }
@@ -85,6 +118,10 @@ function launchProxy() {
         }
         if( typeof message.type !== 'undefined' && message.type === 'unregistration_done' ) {
           findResponder( message );
+        }
+
+        if (typeof message.type !== 'undefined' && message.type === 'countRequest' ) {
+          countRequest( message.url );
         }
 
         return;
@@ -196,9 +233,26 @@ function getRoutes() {
   return routes;
 }
 
+function getRequestStats() {
+  let stats = [];
+  Object.keys( requestStats ).forEach( path => {
+    stats.push({
+      path,
+      count: requestStats[path],
+    })
+  })
+  return stats;
+}
+
+function getRedbirdPID() {
+  return redbirdPID;
+}
+
 module.exports = {
   start: launchProxy,
   register,
   unregister,
   getRoutes,
+  getRequestStats,
+  getRedbirdPID,
 }
