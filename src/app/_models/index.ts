@@ -19,3 +19,9 @@ export class Status {
   proxy: boolean;
   requests: Request[];
 }
+
+export class Log {
+  host: string;
+  url: string;
+  date: Date;
+}
