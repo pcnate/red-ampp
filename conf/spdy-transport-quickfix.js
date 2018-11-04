@@ -9,7 +9,7 @@ let data = fs
     .readFileSync(file)
     .toString()
     .split('\n')
-if (data.length < 190) {
+if (data.length < 190 && false) {
     data.splice(73, 0, '/*')
     data.splice(75, 0, '*/')
     data.splice(
