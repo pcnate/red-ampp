@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { MomentModule } from 'ngx-moment';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,6 +25,7 @@ import { LogsComponent } from './logs/logs.component';
     HttpClientModule,
     AppRoutingModule,
     FormsModule,
+    MomentModule,
     TooltipModule.forRoot()
   ],
   providers: [],
