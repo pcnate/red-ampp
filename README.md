@@ -8,6 +8,13 @@ Developer tool for running micro services behind a redbird proxy.
 >This is only meant to run as a development tool on localhost. Please don't make it run on an external facing interface without adding some security.
 
 
+## Current Setup
+
+ * `git clone https://github.com/pcnate/red-ampp.git`
+ * `cd red-ampp`
+ * `npm install`
+ * `npm run build`
+ * `npm run prod`
 
 
 ## Development Setup
