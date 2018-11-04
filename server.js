@@ -1,7 +1,9 @@
 require('dotenv').config();
 
 const proxy = require('./app/proxy');
-const app = require('express')();
+const express = require('express');
+const path = require('path');
+const app = express();
 const http = require('http').Server( app );
 const bodyParser = require('body-parser');
 
@@ -61,10 +63,6 @@ proxy.start().then( () => {
 });
 
 // listen for a few paths
-app.get('/', ( request, response ) => {
-  response.send('success');
-});
-
 app.get( baseAPI + 'getRoutes', ( request, response ) => {
   response.send( proxy.getRoutes() );
 });
@@ -112,3 +110,11 @@ app.get( baseAPI + 'status', ( request, response ) => {
 
   response.send( status );
 });
+
+if ( process.env.NODE_ENV === 'production' ) {
+  app.use( express.static( 'dist' ) );
+
+  app.get( '*', ( request, response ) => {
+    response.sendFile( path.join( __dirname, 'dist/index.html' ) );
+  });
+}
