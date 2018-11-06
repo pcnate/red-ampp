@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Logs
 logs
 *.log
@@ -33,13 +32,6 @@ bower_components
 # Compiled binary addons (https://nodejs.org/api/addons.html)
 build/Release
 
-# Dependency directories
-node_modules/
-jspm_packages/
-
-# TypeScript v1 declaration files
-typings/
-
 # Optional npm cache directory
 .npm
 
@@ -64,7 +56,6 @@ typings/
 # node-persist
 .node-persist
 .node-persist/
-=======
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
@@ -104,4 +95,11 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
->>>>>>> gui/master
+
+
+# SSL certs
+SSL/*
+!SSL/CreateCARoot.bat
+!SSL/CreateSslClientCert.bat
+!SSL/CreateSslServerCert.bat
+!SSL/generateSSL.bat
