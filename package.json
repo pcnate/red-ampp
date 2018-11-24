@@ -12,7 +12,10 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "postinstall": "node ./conf/spdy-transport-quickfix.js"
+    "postinstall": "npm run build"
+  },
+  "bin": {
+    "red-ampp": "./server.js"
   },
   "repository": {
     "type": "git",
