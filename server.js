@@ -19,7 +19,10 @@ var port = 0;
 var address = 0;
 
 // app use stuff here
-app.use( bodyParser() );
+app.use( bodyParser.urlencoded({
+  extended: true,
+}) );
+app.use( bodyParser.json() );
 
 // start the proxy
 proxy.start().then( () => {
