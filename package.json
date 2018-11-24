@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon server",
-    "prod": "cross-env NODE_ENV=production node server",
+    "prod": "node server",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
