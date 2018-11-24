@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 require('dotenv').config();
 
 const proxy = require('./app/proxy');
@@ -32,10 +33,10 @@ proxy.start().then( () => {
     console.log( 'management app listening on port', port );
     
     // if in development, load angular from port 4200
-    const gui_port = process.env.NODE_ENV !== 'production' ? 4200 : port;
+    const gui_port = process.env.NODE_ENV === 'development' ? 4200 : port;
     
     // angular development mode
-    if( process.env.NODE_ENV !== 'production' ) {
+    if( process.env.NODE_ENV === 'development' ) {
       proxy.register( '/sockjs-node', 'localhost:' + gui_port + '/sockjs-node', false )
       .then(() => {})
       .catch(error => {
@@ -119,7 +120,7 @@ app.get( baseAPI + 'status', ( request, response ) => {
   response.send( status );
 });
 
-if ( process.env.NODE_ENV === 'production' ) {
+if ( process.env.NODE_ENV !== 'development' ) {
   app.use( express.static( 'dist' ) );
 
   app.get( '*', ( request, response ) => {
