@@ -1,6 +1,6 @@
 {
   "name": "red-ampp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "developer tool for running micro services behind a redbird proxy",
   "main": "server.js",
   "scripts": {
@@ -12,7 +12,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "postinstall": "npm run build"
+    "prepare": "npm run build"
   },
   "bin": {
     "red-ampp": "./server.js"
