@@ -1,3 +1,4 @@
 SSL/
 src/
 assets/
+.node-persist/
