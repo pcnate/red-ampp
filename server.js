@@ -124,7 +124,7 @@ app.get( baseAPI + 'status', ( request, response ) => {
 });
 
 if ( process.env.NODE_ENV !== 'development' ) {
-  app.use( express.static( 'dist' ) );
+  app.use( express.static( path.join( __dirname, 'dist' ) ) );
 
   app.get( '*', ( request, response ) => {
     response.sendFile( path.join( __dirname, 'dist/index.html' ) );
