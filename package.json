@@ -1,6 +1,6 @@
 {
   "name": "red-ampp",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "developer tool for running micro services behind a redbird proxy",
   "main": "server.js",
   "scripts": {
