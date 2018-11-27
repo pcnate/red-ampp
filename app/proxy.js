@@ -1,4 +1,5 @@
 const fork = require( 'child_process' ).fork;
+const path = require('path');
 
 var proxyProcess = null;
 var responderRegistry = [];
@@ -106,7 +107,7 @@ function findResponder( message ) {
  */
 function launchProxy() {
   return new Promise( async ( resolve, reject ) => {
-    proxyProcess = await fork( './app/proxyWorker.js', { silent: false });
+    proxyProcess = await fork( path.join( __dirname, 'proxyWorker.js' ), { silent: false });
 
     if (typeof proxyProcess.stdout !== 'undefined' && proxyProcess.stdout !== null ) {
       proxyProcess.stdout.on('data', data => {})
