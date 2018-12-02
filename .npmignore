@@ -1,4 +1,6 @@
 SSL/
 src/
+e2e/
+dist/*.map
 assets/
 .node-persist/
