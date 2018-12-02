@@ -2,6 +2,7 @@
 const proxy      = require('./app/proxy');
 const express    = require('express');
 const path       = require('path');
+const paths      = require('./paths');
 const app        = express();
 const http       = require('http').Server( app );
 const bodyParser = require('body-parser');
@@ -10,7 +11,9 @@ const io         = require('socket.io')( http, {
 });
 
 const storage = require('node-persist');
-storage.init();
+storage.init({
+  dir: paths.configFolder
+});
 
 const baseAPI = '/red-ampp/api/';
 var port = 0;
