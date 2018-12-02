@@ -1,13 +1,11 @@
 #!/usr/bin/env node
-require('dotenv').config();
-
-const proxy = require('./app/proxy');
-const express = require('express');
-const path = require('path');
-const app = express();
-const http = require('http').Server( app );
+const proxy      = require('./app/proxy');
+const express    = require('express');
+const path       = require('path');
+const app        = express();
+const http       = require('http').Server( app );
 const bodyParser = require('body-parser');
-const io = require('socket.io')( http, {
+const io         = require('socket.io')( http, {
   path: '/socket.io/',
 });
 
