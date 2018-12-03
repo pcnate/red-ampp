@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 // listen for new messages
 process.on('message', async message => {
 
