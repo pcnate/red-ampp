@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 const proxy      = require('./app/proxy');
 const express    = require('express');
 const path       = require('path');
