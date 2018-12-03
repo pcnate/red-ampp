@@ -1,4 +1,4 @@
-const fork = require( 'child_process' ).fork;
+const spawn = require( 'child_process' ).spawn;
 const path = require('path');
 
 var proxyProcess = null;
@@ -11,7 +11,7 @@ var redbirdPID = 0;
 var handleLogs = () => {};
 
 function registerLogHandler( handler ) {
-  if( typeof handler !== 'function' ) {
+  if ( typeof handler !== 'function' ) {
     return;
   }
   handleLogs = handler;
@@ -33,12 +33,12 @@ function countRequest( host, url ) {
   let matchedRoutes = allRoutes.filter( m => url.indexOf( m ) > -1 );
   
   // sort by longest so best result comes first if there is more than one
-  if( matchedRoutes.length > 1 ) {
+  if ( matchedRoutes.length > 1 ) {
     matchedRoutes.sort( ( a, b) => b.length - a.length );
   }
 
   // validadate enough results
-  if( matchedRoutes.length < 1 ) {
+  if ( matchedRoutes.length < 1 ) {
     return;
   }
 
@@ -80,18 +80,18 @@ function findResponder( message ) {
   let success = message.success;
 
   matches = responderRegistry.filter( m => m.identifier === identifier );
-  if( matches.length > 0 ) {
+  if ( matches.length > 0 ) {
 
     matches = matches[0];
     
-    if( success ) {
+    if ( success ) {
       if ( typeof matches.success === 'function' ) {
         matches.success();
         responderRegistry = responderRegistry.filter( m => m.identifier !== identifier );
       }
     }
     
-    if( !success ) {
+    if ( !success ) {
       if ( typeof matches.error === 'function' ) {
         matches.error();
         responderRegistry = responderRegistry.filter( m => m.identifier !== identifier );
@@ -107,30 +107,40 @@ function findResponder( message ) {
  */
 function launchProxy() {
   return new Promise( async ( resolve, reject ) => {
-    proxyProcess = await fork( path.join( __dirname, 'proxyWorker.js' ), { silent: false });
+    proxyProcess = await spawn( 'node', [ path.join( __dirname, 'proxyWorker.js' ) ], {
+      windowsHide: true,
+      stdio: [ 'inherit', 'inherit', 'inherit', 'ipc' ],
+    });
 
-    if (typeof proxyProcess.stdout !== 'undefined' && proxyProcess.stdout !== null ) {
+    
+    if ( typeof proxyProcess.stderr !== 'undefined' && proxyProcess.stderr !== null ) {
+      proxyProcess.stderr.on( 'data', ( error ) => {
+        console.error( 'spawn error', error.toString() );
+      });
+    }
+
+    if ( typeof proxyProcess.stdout !== 'undefined' && proxyProcess.stdout !== null ) {
       proxyProcess.stdout.on('data', data => {})
     }
 
     // watch for messages
     proxyProcess.on( 'message', message => {
-      if( typeof message === 'object' ) {
+      if ( typeof message === 'object' ) {
         
-        if( typeof message.type !== 'undefined' && message.type === 'processReady' ) {
+        if ( typeof message.type !== 'undefined' && message.type === 'processReady' ) {
           redbirdPID = message.PID;
           resolve();
           return;
         }
         
-        if( message.output ) {
+        if ( message.output ) {
           console.log( 'worker msg', message.output );
         }
 
-        if( typeof message.type !== 'undefined' && message.type === 'registration_done' ) {
+        if ( typeof message.type !== 'undefined' && message.type === 'registration_done' ) {
           findResponder( message );
         }
-        if( typeof message.type !== 'undefined' && message.type === 'unregistration_done' ) {
+        if ( typeof message.type !== 'undefined' && message.type === 'unregistration_done' ) {
           findResponder( message );
         }
 
