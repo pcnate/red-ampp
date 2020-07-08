@@ -141,5 +141,8 @@
       }
     }
   },
-  "defaultProject": "red-ampp-gui"
+  "defaultProject": "red-ampp-gui",
+  "cli": {
+    "analytics": "ac4ee08e-c0cd-4c93-b2f7-1d97e1bd698e"
+  }
 }
