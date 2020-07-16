@@ -8,11 +8,10 @@
     "prod": "node server",
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build && node bin/build-app.js",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "postinstall": "ngcc"
+    "e2e": "ng e2e"
   },
   "bin": {
     "red-ampp": "./server.js"
@@ -47,10 +46,11 @@
     "bootstrap": "^4.1.3",
     "core-js": "^2.5.4",
     "express": "^4.16.4",
+    "moment": "^2.27.0",
     "ngx-bootstrap": "^3.1.2",
-    "ngx-moment": "^3.2.0",
+    "ngx-moment": "^3.5.0",
     "node-persist": "^3.0.1",
-    "redbird": "^0.9.0",
+    "redbird": "^0.10.0",
     "rxjs": "~6.6.0",
     "socket.io": "^2.2.0",
     "socket.io-client": "^2.2.0",
@@ -68,6 +68,7 @@
     "cli-color": "^2.0.0",
     "codelyzer": "^5.1.2",
     "cross-env": "^5.2.0",
+    "deasync": "^0.1.20",
     "fs-extra": "^9.0.1",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~5.0.0",
