@@ -107,11 +107,18 @@ function findResponder( message ) {
  */
 function launchProxy() {
   return new Promise( async ( resolve, reject ) => {
-    proxyProcess = await spawn( 'node', [ path.join( __dirname, 'proxyWorker.js' ) ], {
-      windowsHide: true,
-      stdio: [ 'inherit', 'inherit', 'inherit', 'ipc' ],
-    });
 
+    if ( process.pkg ) {
+      proxyProcess = await spawn( 'proxyWorker.exe', {
+        windowsHide: true,
+        stdio: [ 'inherit', 'inherit', 'inherit', 'ipc' ],
+      } );
+    } else {
+      proxyProcess = await spawn( 'node', [ path.join( __dirname, 'proxyWorker.js' ) ], {
+        windowsHide: true,
+        stdio: [ 'inherit', 'inherit', 'inherit', 'ipc' ],
+      });
+    }
     
     if ( typeof proxyProcess.stderr !== 'undefined' && proxyProcess.stderr !== null ) {
       proxyProcess.stderr.on( 'data', ( error ) => {
