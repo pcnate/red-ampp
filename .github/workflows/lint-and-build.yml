@@ -38,4 +38,4 @@ jobs:
       with:
         name: build-${{ matrix.node-version }}
         # A file, directory or wildcard pattern that describes what to upload
-        path: output/build-${{ matrix.node-version }}.zip
+        path: build-${{ matrix.node-version }}.zip
