@@ -19,12 +19,12 @@ AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
-DefaultDirName={pf}\{#MyAppFolder}
+DefaultDirName={commonpf}\{#MyAppFolder}
 DisableDirPage=yes
 DefaultGroupName={#MyAppName}
-OutputDir=..\dist
+OutputDir=..\output
 OutputBaseFilename=RedAmppInstaller
-SetupIconFile=favicon.ico
+SetupIconFile=../dist/favicon.ico
 Compression=lzma
 SolidCompression=yes
 
@@ -34,12 +34,13 @@ ArchitecturesInstallIn64BitMode=x64
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Files]
-Source: "..\dist\RedAmpp.exe"; DestName: "RedAmpp.exe"; DestDir: "{app}"; Flags: ignoreversion;
-Source: "..\dist\proxyWorker.exe"; DestName: "proxyWorker.exe"; DestDir: "{app}"; Flags: ignoreversion;
-Source: "..\dist\deasync.node"; DestName: "deasync.node"; DestDir: "{app}"; Flags: ignoreversion;
-; Source: "..\dist\nssm.exe"; DestName: "nssm.exe"; DestDir: "{app}"; Flags: ignoreversion;
-; Source: "..\dist\.env"; DestDir: "{app}"; Flags: ignoreversion
-; Source: "..\dist\.env"; DestDir: "{app}"; DestName: ".envTemplate"; Flags: ignoreversion
+Source: "..\output\RedAmpp.exe";     DestName: "RedAmpp.exe";     DestDir: "{app}";      Flags: ignoreversion;
+Source: "..\output\proxyWorker.exe"; DestName: "proxyWorker.exe"; DestDir: "{app}";      Flags: ignoreversion;
+Source: "..\output\deasync.node";    DestName: "deasync.node";    DestDir: "{app}";      Flags: ignoreversion;
+Source: "..\dist\*";                                              DestDir: "{app}\dist"; Flags: ignoreversion recursesubdirs;
+; Source: "..\output\nssm.exe"; DestName: "nssm.exe"; DestDir: "{app}"; Flags: ignoreversion;
+; Source: "..\output\.env"; DestDir: "{app}"; Flags: ignoreversion
+; Source: "..\output\.env"; DestDir: "{app}"; DestName: ".envTemplate"; Flags: ignoreversion
 
 [Run]
 Filename: "{sys}\sc.exe";   Flags: runhidden; Parameters: "stop RedAmppServer"
