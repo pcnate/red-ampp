@@ -11,6 +11,7 @@
     "build": "ng build && node bin/build-app.js",
     "test": "ng test",
     "lint": "ng lint",
+    "create-installer": "iscc \"build/installer.iss\"",
     "e2e": "ng e2e"
   },
   "bin": {
