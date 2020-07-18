@@ -25,7 +25,8 @@ function buildApp( file, node = 'node10', platform = 'win', architecture = 'x64'
   await utils.copyFolder( path.join( 'dist' ), path.join( 'output', 'dist' ) );
 
   utils.header( 'building executables' );
-  await buildApp( 'server.js', 'node10', 'win', 'x64', 'RedAmpp' );
+  await buildApp( 'server.js',          'node10', 'win', 'x64', 'RedAmpp'     );
+  await buildApp( 'tray.js',            'node10', 'win', 'x64', 'RedAmppTray' );
   await buildApp( 'app/proxyWorker.js', 'node10', 'win', 'x64', 'proxyWorker' );
 
   // utils.header( 'copy deasync module' );
