@@ -11,6 +11,18 @@ const favIconRunning = path.join(...[ __dirname, 'src', 'faviconRunning.ico' ])
 proxyRunning = false
 proxyProcess = null
 
+process.on( 'SIGINT', function () {
+  try {
+    stopServer()
+    setTimeout( () => {
+      appIcon.remove()
+      process.exit()
+    }, 3333 )
+  } catch( error ) {
+    process.exit()
+  }
+});
+
 // Creates an empty (blank) icon in the notification area
 // that does nothing.
 // Unfortunately the Windows terminology I'm exposing here is
