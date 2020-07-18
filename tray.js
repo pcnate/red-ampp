@@ -173,8 +173,10 @@ function handleMenu( mouseX, mouseY ) {
       // Ids work in submenus too.
       console.log( "Exiting" );
       stopServer()
-      appIcon.remove()
-      process.exit()
+      setTimeout( () => {
+        appIcon.remove()
+        process.exit()
+      }, 3333 )
       break;
   }
 }
