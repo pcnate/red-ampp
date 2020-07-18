@@ -4,8 +4,8 @@ let path = require('path')
 let opn = require('opn')
 let { NotifyIcon, Icon, Menu } = require('not-the-systray')
 
-const favIcon = path.join(...[ __dirname, 'src', 'favicon.ico' ])
-const favIconIdle = path.join(...[ __dirname, 'src', 'faviconIdle.ico' ])
+const favIcon        = path.join(...[ __dirname, 'src', 'favicon.ico' ])
+const favIconIdle    = path.join(...[ __dirname, 'src', 'faviconIdle.ico' ])
 const favIconRunning = path.join(...[ __dirname, 'src', 'faviconRunning.ico' ])
 
 proxyRunning = false
