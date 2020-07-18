@@ -52,6 +52,7 @@
     "ngx-moment": "^3.5.0",
     "node-persist": "^3.0.1",
     "not-the-systray": "^0.3.1",
+    "opn": "^6.0.0",
     "redbird": "^0.10.0",
     "rxjs": "~6.6.0",
     "socket.io": "^2.2.0",
