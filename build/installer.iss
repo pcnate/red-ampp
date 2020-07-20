@@ -35,6 +35,7 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Files]
 Source: "..\output\RedAmpp.exe";     DestName: "RedAmpp.exe";     DestDir: "{app}";      Flags: ignoreversion;
+Source: "..\output\RedAmppTray.exe"; DestName: "RedAmppTray.exe"; DestDir: "{app}";      Flags: ignoreversion;
 Source: "..\output\proxyWorker.exe"; DestName: "proxyWorker.exe"; DestDir: "{app}";      Flags: ignoreversion;
 Source: "..\output\deasync.node";    DestName: "deasync.node";    DestDir: "{app}";      Flags: ignoreversion;
 Source: "..\dist\*";                                              DestDir: "{app}\dist"; Flags: ignoreversion recursesubdirs;
@@ -43,7 +44,7 @@ Source: "..\dist\*";                                              DestDir: "{app
 ; Source: "..\output\.env"; DestDir: "{app}"; DestName: ".envTemplate"; Flags: ignoreversion
 
 [Run]
-Filename: "{sys}\sc.exe";   Flags: runhidden; Parameters: "stop RedAmppServer"
+; Filename: "{sys}\sc.exe";   Flags: runhidden; Parameters: "stop RedAmppServer"
 ; Filename: "{cmd}";          Flags: runhidden; Parameters: "/c ""sleep 5"""
 ; Filename: "{app}\nssm.exe"; Flags: runhidden; Parameters: "remove RedAmppServer confirm"
 ; Filename: "{app}\nssm.exe"; Flags: runhidden; Parameters: "install RedAmppServer ""{app}\RedAmpp.exe"""
@@ -58,7 +59,7 @@ Filename: "{sys}\sc.exe";   Flags: runhidden; Parameters: "stop RedAmppServer"
 ; Filename: "{app}\nssm.exe"; Flags: runhidden; Parameters: "start RedAmppServer"
 
 [UninstallRun]
-Filename: "{sys}\sc.exe";   Flags: runhidden; Parameters: "stop RedAmppServer"
+; Filename: "{sys}\sc.exe";   Flags: runhidden; Parameters: "stop RedAmppServer"
 ; Filename: "{app}\nssm.exe"; Flags: runhidden; Parameters: "remove RedAmppServer confirm"
 
 [Code]
