@@ -1,4 +1,7 @@
 #!/usr/bin/env node
+require( 'dotenv' ).config();
+const bindToPort = process.env.port || 3000
+const hostName = 'localhost:'+bindToPort
 
 // listen for new messages
 process.on('message', async message => {
@@ -31,18 +34,18 @@ function log( ...message ) {
 }
 
 function addRegistration( responderIdentifier, folder, destination ) {
-  let returncode = proxy.register( 'localhost' + folder, destination );
+  let returncode = proxy.register( hostName + folder, destination );
   process.send({ type: 'registration_done', responderIdentifier, folder, success: returncode ? true : false });
 }
 
 function removeRegistration( responderIdentifier, folder, destination ) {
-  let returncode = proxy.unregister( 'localhost' + folder, destination );
+  let returncode = proxy.unregister( hostName + folder, destination );
   process.send( { type: 'unregistration_done', responderIdentifier, folder, success: returncode ? true : false });
 }
 
 // start the redbird proxy
 var proxy = require( 'redbird' )( {
-  port: 80,
+  port: bindToPort,
   resolvers: [
     function( host, url ) {
       process.send({ type: 'countRequest', host, url });
