@@ -60,6 +60,7 @@ build/Release
 
 # compiled output
 /dist
+/output
 /tmp
 /out-tsc
 

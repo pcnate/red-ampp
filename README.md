@@ -1,5 +1,7 @@
 # RED-AMPP
 
+![Lint and Build](https://github.com/pcnate/red-ampp/workflows/Lint%20and%20Build/badge.svg)
+
 Developer tool for running micro services behind a redbird proxy. Some CLI tools like Angular already provide a proxy mechanism. This one attempts to seperate from the source and provide more extensive abilities
 
 >__WARNING:__

@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+require('redbird');
 const proxy      = require('./app/proxy');
 const express    = require('express');
 const path       = require('path');
@@ -9,6 +10,10 @@ const bodyParser = require('body-parser');
 const io         = require('socket.io')( http, {
   path: '/socket.io/',
 });
+
+if ( !process.env.NODE_ENV && process.pkg ) {
+  process.env.NODE_ENV = 'production';
+}
 
 const storage = require('node-persist');
 storage.init({
@@ -125,7 +130,7 @@ app.get( baseAPI + 'status', ( request, response ) => {
 });
 
 if ( process.env.NODE_ENV !== 'development' ) {
-  app.use( express.static( path.join( __dirname, 'dist' ) ) );
+  app.use( express.static( path.join( process.cwd(), 'dist' ) ) );
 
   app.get( '*', ( request, response ) => {
     response.sendFile( path.join( __dirname, 'dist/index.html' ) );

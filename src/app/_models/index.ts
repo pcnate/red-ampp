@@ -18,6 +18,8 @@ export class Status {
   port: number;
   proxy: boolean;
   requests: Request[];
+  PID?: any;
+  redbirdPID?: any;
 }
 
 export class Log {
